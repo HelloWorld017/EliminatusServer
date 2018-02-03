@@ -1,0 +1,16 @@
+const StructureResource = require('./StructureResource');
+
+class StructureBarrel extends StructureResource {
+	constructor(game, x, y, z) {
+		super("barrel", game, x, y, z);
+		this.maxHealth = 5;
+		this._health = 5;
+		this.max = 1;
+	}
+
+	handlePick(user) {
+		user.addItem("cytrium", 6);
+	}
+}
+
+module.exports = StructureBarrel;

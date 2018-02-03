@@ -1,0 +1,93 @@
+const structuresByType = require('../structures');
+
+class World {
+	constructor(game) {
+		this.structures = {};
+		this.entities = {};
+		this.deathNote = [];
+		this.lastEntityId = 0;
+
+		this.game = game;
+		this.settings = this.game.settings;
+		this.width = this.settings.width;
+		this.height = this.settings.height;
+
+		this.generateWorld();
+
+		this.structuresByType = structuresByType;
+	}
+
+	getPositionTag({x, y}) {
+		return `${x}:${y}`;
+	}
+
+	generateWorld() {
+		const headquater = new (structuresByType['headquater'])(this, this.width / 2, this.height / 2);
+		this.addStructure(headquater);
+
+		Object.keys(this.settings.generate).forEach((key) => {
+			for(let i = 0; i < this.settings.generate[key]; i++) {
+				let placeable = null;
+				while(!placeable) {
+					const x = Math.floor(Math.random() * (this.settings.width / 40));
+					const y = Math.floor(Math.random() * (this.settings.height / 40));
+
+					if(!this.structures[this.getPositionTag({x: testX, y: testY})]) {
+						placeable = true;
+						this.addStructure(new (this.structuresByType[key])(this.game, x * 40, 0, y * 40));
+					}else placeable = false;
+				}
+			}
+		});
+	}
+
+	addStructure(object) {
+		if(!object.canBuiltOn()) {
+			return new ElmError("Cannot build structure!", "world.structure.build.conditions");
+		}
+
+		const positions = object.getGridPosition();
+		positions.forEach((v) => {
+			const {x, y} = v;
+			this.structures[this.getPositionTag({x, y})] = object;
+		});
+		user.announce('structure.spawn', object.getExportData());
+	}
+
+	removeStructure(object) {
+		const positions = object.getGridPosition();
+		positions.forEach((v) => {
+			const {x, y} = v;
+			delete this.structures[this.getPositionTag({x, y})];
+		});
+
+		user.announce('structure.remove', object.getExportData());
+	}
+
+	getStructureExportData() {
+		return Object.keys(this.structures).map((key) => {
+			return this.structures[key].getExportData();
+		});
+	}
+
+	getEntityExportData() {
+		return Object.keys(this.entities).map((key) => {
+			return this.entities[key].getExportData();
+		});
+	}
+
+	notifyWorld(user) {
+		user.announce('world.generation', this.settings);
+		user.announce('world.entities', this.getEntityExportData());
+		user.announce('world.structures', this.getStructureExportData());
+	}
+
+	spawnEntity(entity) {
+		entity.eid = ++lastEntityId;
+		user.announce('entity.spawn', entity.getExportData());
+	}
+
+	despawnEntity(eid) {
+		this.deathNote.push(eid);
+	}
+}

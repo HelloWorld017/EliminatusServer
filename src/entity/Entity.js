@@ -1,0 +1,73 @@
+class Entity {
+	constructor(entityName, game, x, y, z) {
+		this.type = entityName;
+		this.game = game;
+		this.maxHealth = 100;
+
+		this._x = x;
+		this._y = y;
+		this._z = z;
+		this._rotation = Math.PI / 2;
+		this._health = this.maxHealth;
+		this._updatedAttributes = [];
+
+		this._addTrap('x', 'y', 'z', 'rotation');
+	}
+
+	get updatedAttributes() {
+		const temp = this._updatedAttributes;
+		this._updatedAttributes = [];
+
+		return temp;
+	}
+
+	get health() {
+		return this._health;
+	}
+
+	set health(health) {
+		if(!this._updatedAttributes.includes("health"))
+			this._updatedAttributes.push("health");
+
+		this._health = health;
+
+		if(this._health <= 0) {
+			this.setDead();
+		}
+	}
+
+	_addTrap(...propertyNames) {
+		propertyNames.forEach(propertyName => {
+			Object.defineProperty(this, propertyName, {
+				get() {
+					return this[`_${propertyName}`];
+				},
+
+				set(value) {
+					this[`_${propertyName}`] = value;
+					if(!this._updatedAttributes.includes(propertyName))
+						this._updatedAttributes.push(propertyName);
+				}
+			});
+		});
+
+		return this;
+	}
+
+	setDead() {
+		this.game.world.despawnEntity(this);
+	}
+
+	getExportData() {
+		return {
+			type: this.type,
+			x: this.x,
+			y: this.y,
+			z: this.z,
+			rotation: this.rotation,
+			health: this.health
+		};
+	}
+}
+
+module.exports = Entity;
