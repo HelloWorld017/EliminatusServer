@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/HelloWorld017/EliminatusServer#readme",
   "dependencies": {
+    "deep-extend": "^0.5.0",
     "express": "^4.16.2",
     "socket.io": "^2.0.4",
     "uuid": "^3.2.1"
