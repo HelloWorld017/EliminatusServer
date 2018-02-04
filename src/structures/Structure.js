@@ -31,9 +31,7 @@ class Structure {
 	}
 
 	canBuiltOn() {
-		return this.getGridPosition().every((v) => {
-			return !this.game.world.structures[this.game.world.getPositionTag(v)];
-		});
+		return this.getGridPosition().every((v) => !this.game.world.structures[this.game.world.getPositionTag(v)]);
 	}
 
 	getExportData() {
@@ -41,11 +39,14 @@ class Structure {
 			type: this.networkId,
 			x: this.x,
 			y: this.y,
-			rotation: this.rotation
-		}
-	}	get updatedAttributes() {
+			rotation: this.rotation,
+			health: this.health
+		};
+	}
+
+	get updatedAttributes() {
 		const temp = this._updatedAttributes;
-		this._updatedAttributes = [];
+		this._updatedAttributes = {};
 
 		return temp;
 	}
@@ -55,9 +56,7 @@ class Structure {
 	}
 
 	set health(health) {
-		if(!this._updatedAttributes.includes("health")) {
-			this._updatedAttributes.push("health");
-		}
+		this._updatedAttributes.health = health;
 		this._health = health;
 
 		if(this._health <= 0) {

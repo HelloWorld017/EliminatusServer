@@ -1,8 +1,8 @@
 const StructureResource = require('./StructureResource');
 
 class StructureRock extends StructureResource {
-	constructor(game, x, y, z) {
-		super("rock", game, x, y, z);
+	constructor(game, x, y) {
+		super("rock", game, x, y);
 		this.maxHealth = 100;
 		this.max = 20;
 		this._health = this.maxHealth;

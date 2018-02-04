@@ -1,8 +1,8 @@
 const Structure = require('./Structure');
 
 class StructureHeadquater extends Structure{
-	constructor(game, x, y) {
-		super("headquater", game, x, y);
+	constructor(game, x, y, rot) {
+		super("headquater", game, x, y, rot);
 		this.maxHealth = 2000;
 		this._health = 2000;
 		this.innerTick = 0;

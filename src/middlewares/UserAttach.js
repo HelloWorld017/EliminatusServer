@@ -14,9 +14,4 @@ module.exports = function attachUser(socket) {
 
 		socket.emit('user.login.success');
 	});
-
-	socket.on('disconnect', () => {
-		if(socket.user && (socket.user.game ||socket.user.waiting)) socket.user.exitGame();
-		socket.user = null;
-	});
 };

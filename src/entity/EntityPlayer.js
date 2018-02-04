@@ -2,10 +2,9 @@ const Entity = require('./Entity');
 
 class EntityPlayer extends Entity{
 	constructor(game, user) {
-		super('player', game, 4000, 0, 4000);
+		super('player', game, 4000, 0, 4040);
 
 		this.id = user.id;
-		this.eid = null;
 		this.user = user;
 		this.user.game = game;
 		this.game = game;
@@ -23,7 +22,9 @@ class EntityPlayer extends Entity{
 		}
 
 		this.inventory.set(itemTag, amount + addAmount);
-		this.noticeInventory();
+
+		if(!this.updatedAttributes.tags) this.updatedAttributes.tags = {};
+		this.updatedAttributes.tags.inventory = this.getInventoryExportData();
 	}
 
 	announce(...args) {
@@ -39,6 +40,7 @@ class EntityPlayer extends Entity{
 
 			if(v && typeof v === 'number') {
 				if(Math.abs(this[k] - v) >= 15) {
+					//TODO prevent moving outside map, prevent flying
 					revert = true;
 				} else {
 					this[k] = v;
@@ -47,7 +49,7 @@ class EntityPlayer extends Entity{
 		});
 
 		if(typeof rot === 'number' && isFinite(rot)) {
-			this.rotation = rot / (Math.PI * 2);
+			this.rotation = rot % (Math.PI * 2);
 		}
 
 		if(revert) {
@@ -55,10 +57,26 @@ class EntityPlayer extends Entity{
 		}
 	}
 
-	noticeInventory() {
+	getInventoryExportData() {
 		const inv = {};
 		this.inventory.forEach((v, k) => inv[k] = v);
-		this.announce('player.inventory', {inventory: inv});
+		return inv;
+	}
+
+	getExportData() {
+		return {
+			type: this.type,
+			x: this.x,
+			y: this.y,
+			z: this.z,
+			rotation: this.rotation,
+			health: this.health,
+			tags: {
+				inventory: this.getInventoryExportData(),
+				uid: this.id
+			},
+			id: this.eid
+		};
 	}
 }
 

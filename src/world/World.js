@@ -1,3 +1,4 @@
+const ElmError = require('../error/ElmError');
 const structuresByType = require('../structures');
 
 class World {
@@ -30,9 +31,9 @@ class World {
 					const x = Math.floor(Math.random() * (this.settings.width / 40));
 					const y = Math.floor(Math.random() * (this.settings.height / 40));
 
-					if(!this.structures[this.getPositionTag({x: testX, y: testY})]) {
+					if(!this.structures[this.getPositionTag({x: x, y: y})]) {
 						placeable = true;
-						this.addStructure(new (this.structuresByType[key])(this.game, x * 40, 0, y * 40));
+						this.addStructure(new (this.structuresByType[key])(this.game, x * 40, y * 40));
 					}else placeable = false;
 				}
 			}
@@ -75,14 +76,30 @@ class World {
 	}
 
 	notifyWorld(user) {
-		user.announce('world.generation', this.settings);
 		user.announce('world.entities', this.getEntityExportData());
 		user.announce('world.structures', this.getStructureExportData());
 	}
 
+	tick() {
+		const entityUpdate = Object.keys(this.entities).map((key) => {
+			return this.entities[key].getExportData();
+		});
+
+		const structureUpdate = Object.keys(this.structures).map((key) => {
+			return this.structures[key].updatedAttributes;
+		});
+
+		this.game.announce('world.tick', {
+			entityUpdate, structureUpdate
+		});
+	}
+
 	spawnEntity(entity) {
-		entity.eid = ++lastEntityId;
-		user.announce('entity.spawn', entity.getExportData());
+		entity.eid = ++this.lastEntityId;
+		this.entities[entity.eid] = entity;
+		this.game.announce('entity.spawn', entity.getExportData());
+
+		return entity.eid;
 	}
 
 	despawnEntity(eid) {

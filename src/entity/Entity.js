@@ -3,20 +3,21 @@ class Entity {
 		this.type = entityName;
 		this.game = game;
 		this.maxHealth = 100;
+		this.eid = null;
 
 		this._x = x;
 		this._y = y;
 		this._z = z;
 		this._rotation = Math.PI / 2;
 		this._health = this.maxHealth;
-		this._updatedAttributes = [];
+		this._updatedAttributes = {};
 
 		this._addTrap('x', 'y', 'z', 'rotation');
 	}
 
 	get updatedAttributes() {
 		const temp = this._updatedAttributes;
-		this._updatedAttributes = [];
+		this._updatedAttributes = {};
 
 		return temp;
 	}
@@ -26,8 +27,7 @@ class Entity {
 	}
 
 	set health(health) {
-		if(!this._updatedAttributes.includes("health"))
-			this._updatedAttributes.push("health");
+		this._updatedAttributes.health = health;
 
 		this._health = health;
 
@@ -45,8 +45,7 @@ class Entity {
 
 				set(value) {
 					this[`_${propertyName}`] = value;
-					if(!this._updatedAttributes.includes(propertyName))
-						this._updatedAttributes.push(propertyName);
+					this._updatedAttributes[propertyName] = value;
 				}
 			});
 		});
@@ -65,7 +64,9 @@ class Entity {
 			y: this.y,
 			z: this.z,
 			rotation: this.rotation,
-			health: this.health
+			health: this.health,
+			tags: {},
+			id: this.eid
 		};
 	}
 }

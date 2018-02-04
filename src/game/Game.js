@@ -27,6 +27,7 @@ class Game {
 		this.users = new Map();
 		this.world = new World(this);
 		this.world.generateWorld();
+		this.tick();
 	}
 
 	announce(tag, payload) {
@@ -43,9 +44,16 @@ class Game {
 	}
 
 	join(user) {
-		const gameUser = new EntityPlayer(user);
-		gameUser.eid = this.world.spawnEntity(gameUser);
+		const gameUser = new EntityPlayer(this, user);
+		this.world.spawnEntity(gameUser);
 		this.users.set(gameUser.id, gameUser);
+
+		gameUser.announce('game.start', {
+			id: this.id,
+			uid: gameUser.id
+		});
+		gameUser.announce('world.generation', this.settings);
+
 		this.announce('user.join', {
 			uid: gameUser.id,
 			eid: gameUser.eid
@@ -64,6 +72,12 @@ class Game {
 		});
 
 		this.users.delete(gameUser.id);
+	}
+
+	tick() {
+		this.world.tick();
+
+		setTimeout(() => this.tick(), 50);
 	}
 }
 

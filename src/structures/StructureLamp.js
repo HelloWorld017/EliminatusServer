@@ -1,8 +1,8 @@
 const StructureResource = require('./StructureResource');
 
 class StructureLamp extends StructureResource {
-	constructor(game, x, y, z) {
-		super("lamp", game, x, y, z);
+	constructor(game, x, y) {
+		super("lamp", game, x, y);
 		this.maxHealth = 20;
 		this.max = 4;
 		this._health = 20;
