@@ -15,7 +15,9 @@ module.exports = function matchGames(socket) {
 			if(!waiting) return;
 			socket.user.joinGame(waiting);
 			socket.emit('match.create.success', waiting.id);
-		} catch(e) {}
+		} catch(e) {
+			console.error(e);
+		}
 	});
 
 	socket.on('match.join', id => {
@@ -25,7 +27,10 @@ module.exports = function matchGames(socket) {
 		try {
 			const waiting = global.gameManager.waitings.get(id);
 			socket.user.joinGame(waiting);
-		} catch(e) {}
+			socket.emit('match.join.success', waiting.id);
+		} catch(e) {
+			console.error(e);
+		}
 	});
 
 	socket.on('match.exit', () => {
@@ -33,6 +38,8 @@ module.exports = function matchGames(socket) {
 
 		try {
 			socket.user.exitGame();
-		} catch(e) {}
+		} catch(e) {
+			console.error(e);
+		}
 	});
 };

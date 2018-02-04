@@ -11,6 +11,10 @@ class StructureBarrel extends StructureResource {
 	handlePick(user) {
 		user.addItem("cytrium", 6);
 	}
+
+	static get type() {
+		return "barrel";
+	}
 }
 
 module.exports = StructureBarrel;

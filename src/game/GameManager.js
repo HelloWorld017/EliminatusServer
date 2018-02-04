@@ -41,7 +41,7 @@ class GameManager {
 			title: v.title,
 			current: v.users.size,
 			max: v.maxUser,
-			users: [...v.users.values()].map(v => v.name)
+			users: [...v.users.values()].map(v => [v.id, v.name])
 		}));
 	}
 

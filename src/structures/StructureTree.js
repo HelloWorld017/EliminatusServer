@@ -12,6 +12,10 @@ class StructureTree extends StructureResource {
 		user.addItem("cytrium", 3);
 		user.addItem("tree", 8);
 	}
+
+	static get type() {
+		return "tree";
+	}
 }
 
 module.exports = StructureTree;

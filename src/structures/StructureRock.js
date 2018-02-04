@@ -12,6 +12,10 @@ class StructureRock extends StructureResource {
 		user.addItem('cytrium', 10);
 		user.addItem('stone', 15);
 	}
+
+	static get type() {
+		return "rock";
+	}
 }
 
 module.exports = StructureRock;

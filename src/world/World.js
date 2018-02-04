@@ -12,8 +12,6 @@ class World {
 		this.width = this.settings.width;
 		this.height = this.settings.height;
 
-		this.generateWorld();
-
 		this.structuresByType = structuresByType;
 	}
 
@@ -22,7 +20,7 @@ class World {
 	}
 
 	generateWorld() {
-		const headquater = new (structuresByType['headquater'])(this, this.width / 2, this.height / 2);
+		const headquater = new (structuresByType.headquater)(this.game, this.width / 2, this.height / 2);
 		this.addStructure(headquater);
 
 		Object.keys(this.settings.generate).forEach((key) => {
@@ -51,7 +49,7 @@ class World {
 			const {x, y} = v;
 			this.structures[this.getPositionTag({x, y})] = object;
 		});
-		user.announce('structure.spawn', object.getExportData());
+		this.game.announce('structure.spawn', object.getExportData());
 	}
 
 	removeStructure(object) {
@@ -91,3 +89,5 @@ class World {
 		this.deathNote.push(eid);
 	}
 }
+
+module.exports = World;

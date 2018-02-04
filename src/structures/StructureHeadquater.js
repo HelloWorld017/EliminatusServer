@@ -19,8 +19,8 @@ class StructureHeadquater extends Structure{
 	}
 
 	getGridPosition() {
-		const x = Math.floor(this.model.position.x / 40)
-		const y = Math.floor(this.model.position.y / 40)
+		const x = Math.floor(this.x / 40);
+		const y = Math.floor(this.y / 40);
 		return [{x, y}, {x: x + 1, y}, {x, y: y + 1}, {x: x + 1, y: y + 1}];
 	}
 
@@ -30,6 +30,10 @@ class StructureHeadquater extends Structure{
 
 	get height() {
 		return 2;
+	}
+
+	static get type() {
+		return "headquater";
 	}
 }
 

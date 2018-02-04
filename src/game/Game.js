@@ -1,3 +1,4 @@
+const deepExtend = require('deep-extend');
 const uuid = require('uuid/v4');
 const EntityPlayer = require('../entity/EntityPlayer');
 const World = require('../world/World');
@@ -21,10 +22,11 @@ const DEFAULT_SETTINGS = {
 class Game {
 	constructor(settings) {
 		this.id = uuid();
-		this.settings = settings;
+		this.settings = deepExtend({}, DEFAULT_SETTINGS, settings);
 		this.maxUser = settings.maxUser;
 		this.users = new Map();
 		this.world = new World(this);
+		this.world.generateWorld();
 	}
 
 	announce(tag, payload) {

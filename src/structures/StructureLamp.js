@@ -12,6 +12,10 @@ class StructureLamp extends StructureResource {
 		user.addItem("cytrium", 3);
 		user.addItem("stone", 5);
 	}
+
+	static get type() {
+		return "lamp";
+	}
 }
 
 module.exports = StructureLamp;

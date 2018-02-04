@@ -1,10 +1,10 @@
 class Structure {
-	constructor(networkId, game, x, y, rotation) {
+	constructor(networkId, game, x, y, rotation=0) {
 		this.game = game;
 		this.x = x;
 		this.y = y;
 		this.rotation = rotation;
-		this.networkId = networkId;
+		this.networkId = this.type = networkId;
 		this.maxHealth = 300;
 
 		this._health = 300;
@@ -25,8 +25,8 @@ class Structure {
 
 	getGridPosition() {
 		return [{
-			x: Math.floor(this.model.position.x / 40),
-			y: Math.floor(this.model.position.y / 40)
+			x: Math.floor(this.x / 40),
+			y: Math.floor(this.y / 40)
 		}];
 	}
 
@@ -43,9 +43,7 @@ class Structure {
 			y: this.y,
 			rotation: this.rotation
 		}
-	}
-
-	get updatedAttributes() {
+	}	get updatedAttributes() {
 		const temp = this._updatedAttributes;
 		this._updatedAttributes = [];
 
