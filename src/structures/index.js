@@ -15,10 +15,10 @@ const structures = [
 	StructureStone,
 	StructureTree
 ];
-const structuresByType = {};
+const structuresByType = new Map;
 
 for(const structure of structures) {
-	structuresByType[structure.type] = structure;
+	structuresByType.set(structure.type, structure);
 }
 
 module.exports = structuresByType;

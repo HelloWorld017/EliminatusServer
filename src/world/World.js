@@ -3,7 +3,7 @@ const structuresByType = require('../structures');
 
 class World {
 	constructor(game) {
-		this.structures = {};
+		this.structures = new Map;
 		this.entities = {};
 		this.deathNote = [];
 		this.lastEntityId = 0;
@@ -21,7 +21,7 @@ class World {
 	}
 
 	generateWorld() {
-		const headquater = new (structuresByType.headquater)(this.game, this.width / 2, this.height / 2);
+		const headquater = new (structuresByType.get('headquater'))(this.game, this.width / 2, this.height / 2);
 		this.addStructure(headquater);
 
 		Object.keys(this.settings.generate).forEach((key) => {
@@ -33,7 +33,7 @@ class World {
 
 					if(!this.structures[this.getPositionTag({x: x, y: y})]) {
 						placeable = true;
-						this.addStructure(new (this.structuresByType[key])(this.game, x * 40, y * 40));
+						this.addStructure(new (this.structuresByType.get(key))(this.game, x * 40, y * 40));
 					}else placeable = false;
 				}
 			}

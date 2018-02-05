@@ -31,6 +31,12 @@ class Structure {
 	}
 
 	canBuiltOn() {
+		if(this.rotation % (Math.PI / 2) !== 0) {
+			return false;
+		}
+
+		if(!this.userBuildable) return false;
+
 		return this.getGridPosition().every((v) => !this.game.world.structures[this.game.world.getPositionTag(v)]);
 	}
 
@@ -42,6 +48,10 @@ class Structure {
 			rotation: this.rotation,
 			health: this.health
 		};
+	}
+
+	get userBuildable() {
+		return false;
 	}
 
 	get updatedAttributes() {
