@@ -22,7 +22,7 @@ class World {
 
 	generateWorld() {
 		const headquater = new (structuresByType.get('headquater'))(this.game, this.width / 2, this.height / 2);
-		this.addStructure(headquater);
+		this.addStructure(headquater, true);
 
 		Object.keys(this.settings.generate).forEach((key) => {
 			for(let i = 0; i < this.settings.generate[key]; i++) {
@@ -33,15 +33,15 @@ class World {
 
 					if(!this.structures[this.getPositionTag({x: x, y: y})]) {
 						placeable = true;
-						this.addStructure(new (this.structuresByType.get(key))(this.game, x * 40, y * 40));
-					}else placeable = false;
+						this.addStructure(new (this.structuresByType.get(key))(this.game, x * 40, y * 40), true);
+					} else placeable = false;
 				}
 			}
 		});
 	}
 
-	addStructure(object) {
-		if(!object.canBuiltOn()) {
+	addStructure(object, force=false) {
+		if(!force && !object.canBuiltOn()) {
 			return new ElmError("Cannot build structure!", "world.structure.build.conditions");
 		}
 

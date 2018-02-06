@@ -31,9 +31,7 @@ class Structure {
 	}
 
 	canBuiltOn() {
-		if(this.rotation % (Math.PI / 2) !== 0) {
-			return false;
-		}
+		if(this.rotation % (Math.PI / 2) !== 0) return false;
 
 		if(!this.userBuildable) return false;
 

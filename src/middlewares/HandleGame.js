@@ -21,11 +21,11 @@ module.exports = function handleGame(socket) {
 		if(typeof x !== 'number' || typeof y !== 'number' || typeof rotation !== 'number' || typeof type !== 'string')
 			return;
 
-		if(!world.structuresByType.get(type)) return;
+		if(!game.world.structuresByType.get(type)) return;
 		// Should use map because if we use object rather than map,
 		// poisonous inputs like "constructor" can result in object["constructor"]
 
-		const structure = (new world.structuresByType.get(type))(game, x, y, rotation);
+		const structure = new (game.world.structuresByType.get(type))(game, x, y, rotation);
 		game.world.addStructure(structure);
 	}));
 

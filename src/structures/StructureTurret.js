@@ -1,6 +1,6 @@
 const Structure = require('./Structure');
 
-class StructureTurret extends StructureResource {
+class StructureTurret extends Structure {
 	constructor(game, x, y) {
 		super("turret", game, x, y);
 		this.maxHealth = 450;
@@ -16,6 +16,7 @@ class StructureTurret extends StructureResource {
 		const y = Math.floor(this.y / 40);
 		const grid = [{x, y}];
 
+		//TODO fix wrong grid
 		grid.push({
 			x: x + Math.round(Math.cos(this.rotation)),
 			y: y + Math.round(Math.sin(this.rotation))

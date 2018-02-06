@@ -5,6 +5,7 @@ const StructureOre = require("./StructureOre");
 const StructureRock = require("./StructureRock");
 const StructureStone = require("./StructureStone");
 const StructureTree = require("./StructureTree");
+const StructureTurret = require("./StructureTurret");
 
 const structures = [
 	StructureBarrel,
@@ -13,7 +14,8 @@ const structures = [
 	StructureOre,
 	StructureRock,
 	StructureStone,
-	StructureTree
+	StructureTree,
+	StructureTurret
 ];
 const structuresByType = new Map;
 
