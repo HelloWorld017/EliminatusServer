@@ -1,8 +1,10 @@
+const {clamp} = require('../utils');
+
 class Structure {
 	constructor(networkId, game, x, y, rotation=0) {
 		this.game = game;
-		this.x = x;
-		this.y = y;
+		this.x = clamp(0, x, game.world.width);
+		this.y = clamp(0, y, game.world.height);
 		this.rotation = rotation;
 		this.networkId = this.type = networkId;
 		this.maxHealth = 300;

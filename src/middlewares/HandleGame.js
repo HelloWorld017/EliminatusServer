@@ -1,3 +1,4 @@
+const {clamp, mod} = require('../utils');
 const lastPacket = new Map();
 
 const checkCondition = socket => callback => payload => {
@@ -25,7 +26,7 @@ module.exports = function handleGame(socket) {
 		// Should use map because if we use object rather than map,
 		// poisonous inputs like "constructor" can result in object["constructor"]
 
-		const structure = new (game.world.structuresByType.get(type))(game, x, y, rotation);
+		const structure = new (game.world.structuresByType.get(type))(game, x, y, mod(rotation, Math.PI * 2));
 		game.world.addStructure(structure);
 	}));
 

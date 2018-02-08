@@ -1,4 +1,7 @@
 const StructureBarrel = require("./StructureBarrel");
+const StructureEngineeringCore = require('./StructureEngineeringCore');
+const StructureFactoryCore = require('./StructureFactoryCore');
+const StructureGeneratorCore = require('./StructureGeneratorCore');
 const StructureHeadquater = require("./StructureHeadquater");
 const StructureLamp = require("./StructureLamp");
 const StructureOre = require("./StructureOre");

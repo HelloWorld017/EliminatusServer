@@ -1,8 +1,8 @@
 const Structure = require('./Structure');
 
 class StructureOre extends Structure {
-	constructor(game, x, y) {
-		super("ore", game, x, y);
+	constructor(game, x, y, rot) {
+		super("ore", game, x, y, rot);
 		this.maxHealth = 50;
 		this._health = 50;
 	}

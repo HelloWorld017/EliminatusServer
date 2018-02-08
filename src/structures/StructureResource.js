@@ -1,8 +1,8 @@
 const Structure = require('./Structure');
 
 class StructureResource extends Structure {
-	constructor(networkId, game, x, y) {
-		super(networkId, game, x, y);
+	constructor(networkId, game, x, y, rot) {
+		super(networkId, game, x, y, rot);
 		this.max = 10;
 	}
 
