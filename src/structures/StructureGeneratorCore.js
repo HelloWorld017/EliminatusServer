@@ -4,10 +4,12 @@ class StructureGeneratorCore extends Structure {
 	constructor(game, x, y, rot) {
 		super("generator_core", game, x, y, rot);
 		this.maxHealth = 310;
-		this.max = 4;
 		this._health = 310;
 	}
 
+	onTick() {
+		//TODO add health to near structures
+	}
 	getGridPosition() {
 		const x = Math.floor(this.x / 40);
 		const y = Math.floor(this.y / 40);
@@ -32,4 +34,4 @@ class StructureGeneratorCore extends Structure {
 	}
 }
 
-module.exports = StructureEngineeringCore;
+module.exports = StructureGeneratorCore;

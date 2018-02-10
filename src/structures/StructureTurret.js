@@ -7,8 +7,8 @@ class StructureTurret extends Structure {
 		this._health = this.maxHealth;
 	}
 
-	tick() {
-		//TODO implement
+	onTick() {
+		//TODO attack near spectors
 	}
 
 	getGridPosition() {

@@ -9,11 +9,25 @@ class Structure {
 		this.networkId = this.type = networkId;
 		this.maxHealth = 300;
 
+		this.healthDelta = 0;
+		this.building = false;
+
 		this._health = 300;
 		this._updatedAttributes = [];
 	}
 
 	tick() {
+		this.health += this.healthDelta;
+
+		if(this.building) {
+			if(this.health === this.maxHealth) {
+				this.building = false;
+				this.healthDelta -= 5;
+			}
+		} else this.onTick();
+	}
+
+	onTick() {
 
 	}
 
@@ -23,6 +37,12 @@ class Structure {
 
 	onDestroy() {
 
+	}
+
+	startBuildAnimation() {
+		this.health = 1;
+		this.healthDelta += 5;
+		this.building = true;
 	}
 
 	getGridPosition() {
@@ -56,7 +76,10 @@ class Structure {
 
 	get updatedAttributes() {
 		const temp = this._updatedAttributes;
-		this._updatedAttributes = {};
+		this._updatedAttributes = {
+			x: this.x,
+			y: this.y
+		};
 
 		return temp;
 	}
@@ -66,6 +89,7 @@ class Structure {
 	}
 
 	set health(health) {
+		health = Math.min(this.maxHealth, health);
 		this._updatedAttributes.health = health;
 		this._health = health;
 

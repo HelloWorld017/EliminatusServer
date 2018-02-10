@@ -1,12 +1,16 @@
 const Structure = require('./Structure');
 
-class StructureFactoryCore extends Structure {
+class StructureRepairCore extends Structure {
 	constructor(game, x, y, rot) {
-		super("factory_core", game, x, y, rot);
-		this.maxHealth = 350;
-		this._health = 350;
+		super("repair_core", game, x, y, rot);
+		this.maxHealth = 430;
+		this._health = this.maxHealth;
 	}
 
+	onTick() {
+		//TODO heal near entities
+	}
+	
 	getGridPosition() {
 		const x = Math.floor(this.x / 40);
 		const y = Math.floor(this.y / 40);
@@ -23,7 +27,7 @@ class StructureFactoryCore extends Structure {
 	}
 
 	static get type() {
-		return "factory_core";
+		return "repair_core";
 	}
 
 	get userBuildable() {
@@ -31,4 +35,4 @@ class StructureFactoryCore extends Structure {
 	}
 }
 
-module.exports = StructureFactoryCore;
+module.exports = StructureRepairCore;

@@ -50,7 +50,17 @@ class World {
 			const {x, y} = v;
 			this.structures[this.getPositionTag({x, y})] = object;
 		});
-		this.game.announce('structure.spawn', object.getExportData());
+
+		if(!force) object.startBuildAnimation();
+		this.game.announce('structure.spawn', {
+			animate: !force ? [{
+				type: "structure.build",
+				args: {
+					targetHealth: object.maxHealth
+				}
+			}] : [],
+			structure: object.getExportData()
+		});
 	}
 
 	removeStructure(object) {
@@ -82,7 +92,7 @@ class World {
 
 	tick() {
 		const entityUpdate = Object.keys(this.entities).map((key) => {
-			return this.entities[key].getExportData();
+			return this.entities[key].updatedAttributes;
 		});
 
 		const structureUpdate = Object.keys(this.structures).map((key) => {

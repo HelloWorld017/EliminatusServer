@@ -4,7 +4,6 @@ class StructureEngineeringCore extends Structure {
 	constructor(game, x, y, rot) {
 		super("engineering_core", game, x, y, rot);
 		this.maxHealth = 550;
-		this.max = 4;
 		this._health = 550;
 	}
 

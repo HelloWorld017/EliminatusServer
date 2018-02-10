@@ -17,7 +17,9 @@ class Entity {
 
 	get updatedAttributes() {
 		const temp = this._updatedAttributes;
-		this._updatedAttributes = {};
+		this._updatedAttributes = {
+			id: this.eid
+		};
 
 		return temp;
 	}

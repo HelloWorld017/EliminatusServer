@@ -8,13 +8,14 @@ class StructureHeadquater extends Structure{
 		this.innerTick = 0;
 	}
 
-	tick() {
+	onTick() {
 		this.innerTick++;
 
-		if(this.innerTick % 100 === 0) {
+		if(this.innerTick === 100) {
 			this.game.users.forEach((v) => {
 				v.addItem("cytrium", 5);
 			});
+			this.innerTick = 0;
 		}
 	}
 

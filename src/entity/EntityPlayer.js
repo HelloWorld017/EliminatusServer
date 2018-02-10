@@ -23,7 +23,6 @@ class EntityPlayer extends Entity{
 
 		this.inventory.set(itemTag, amount + addAmount);
 
-		if(!this.updatedAttributes.tags) this.updatedAttributes.tags = {};
 		this.updatedAttributes.tags.inventory = this.getInventoryExportData();
 	}
 
@@ -61,6 +60,18 @@ class EntityPlayer extends Entity{
 		const inv = {};
 		this.inventory.forEach((v, k) => inv[k] = v);
 		return inv;
+	}
+
+	get updatedAttributes() {
+		const temp = this._updatedAttributes;
+		this._updatedAttributes = {
+			id: this.eid,
+			tags: {
+				uid: this.id
+			}
+		};
+
+		return temp;
 	}
 
 	getExportData() {
