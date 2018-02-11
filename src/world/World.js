@@ -1,9 +1,11 @@
+const uuid = require('uuid/v4');
 const ElmError = require('../error/ElmError');
 const structuresByType = require('../structures');
 
 class World {
 	constructor(game) {
-		this.structures = new Map;
+		this.structures = {};
+		this.structureList = new Map;
 		this.entities = {};
 		this.deathNote = [];
 		this.lastEntityId = 0;
@@ -45,6 +47,10 @@ class World {
 			return new ElmError("Cannot build structure!", "world.structure.build.conditions");
 		}
 
+		object.uid = uuid();
+
+		this.structureList.set(object.uid, object);
+
 		const positions = object.getGridPosition();
 		positions.forEach((v) => {
 			const {x, y} = v;
@@ -70,6 +76,8 @@ class World {
 			delete this.structures[this.getPositionTag({x, y})];
 		});
 
+		this.structureList.delete(object.uid);
+
 		user.announce('structure.remove', object.getExportData());
 	}
 
@@ -91,13 +99,21 @@ class World {
 	}
 
 	tick() {
-		const entityUpdate = Object.keys(this.entities).map((key) => {
-			return this.entities[key].updatedAttributes;
-		});
+		const entityUpdate = Object.keys(this.entities).map(key => {
+			this.entities[key].tick();
 
-		const structureUpdate = Object.keys(this.structures).map((key) => {
-			return this.structures[key].updatedAttributes;
-		});
+			if(!this.entities[key].needsUpdate) return false;
+
+			return this.entities[key].updatedAttributes;
+		}).filter(v => v);
+
+		const structureUpdate = [...this.structureList.keys()].map(key => {
+			this.structureList.get(key).tick();
+
+			if(!this.structureList.get(key).needsUpdate) return false;
+
+			return this.structureList.get(key).updatedAttributes;
+		}).filter(v => v);
 
 		this.game.announce('world.tick', {
 			entityUpdate, structureUpdate

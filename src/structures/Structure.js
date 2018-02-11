@@ -12,8 +12,13 @@ class Structure {
 		this.healthDelta = 0;
 		this.building = false;
 
+		this.needsUpdate = false;
+
 		this._health = 300;
-		this._updatedAttributes = [];
+		this._updatedAttributes = {
+			x: this.x,
+			y: this.y
+		};
 	}
 
 	tick() {
@@ -66,7 +71,8 @@ class Structure {
 			x: this.x,
 			y: this.y,
 			rotation: this.rotation,
-			health: this.health
+			health: this.health,
+			maxHealth: this.maxHealth
 		};
 	}
 
@@ -76,11 +82,11 @@ class Structure {
 
 	get updatedAttributes() {
 		const temp = this._updatedAttributes;
+		this.needsUpdate = false;
 		this._updatedAttributes = {
 			x: this.x,
 			y: this.y
 		};
-
 		return temp;
 	}
 
@@ -90,6 +96,9 @@ class Structure {
 
 	set health(health) {
 		health = Math.min(this.maxHealth, health);
+		if(this.health === health) return;
+
+		this.needsUpdate = true;
 		this._updatedAttributes.health = health;
 		this._health = health;
 

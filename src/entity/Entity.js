@@ -12,11 +12,14 @@ class Entity {
 		this._health = this.maxHealth;
 		this._updatedAttributes = {};
 
+		this.needsUpdate = false;
+
 		this._addTrap('x', 'y', 'z', 'rotation');
 	}
 
 	get updatedAttributes() {
 		const temp = this._updatedAttributes;
+		this.needsUpdate = false;
 		this._updatedAttributes = {
 			id: this.eid
 		};
@@ -30,6 +33,7 @@ class Entity {
 
 	set health(health) {
 		this._updatedAttributes.health = health;
+		this.needsUpdate = true;
 
 		this._health = health;
 
@@ -48,11 +52,16 @@ class Entity {
 				set(value) {
 					this[`_${propertyName}`] = value;
 					this._updatedAttributes[propertyName] = value;
+					this.needsUpdate = true;
 				}
 			});
 		});
 
 		return this;
+	}
+
+	tick() {
+		
 	}
 
 	setDead() {

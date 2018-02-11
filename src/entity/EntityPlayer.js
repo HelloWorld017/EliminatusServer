@@ -15,7 +15,7 @@ class EntityPlayer extends Entity{
 	}
 
 	addItem(itemTag, addAmount) {
-		const amount = this.inventory.get(itemTag);
+		let amount = this.inventory.get(itemTag);
 
 		if(!amount) {
 			amount = 0;
@@ -23,6 +23,7 @@ class EntityPlayer extends Entity{
 
 		this.inventory.set(itemTag, amount + addAmount);
 
+		this.needsUpdate = true;
 		this.updatedAttributes.tags.inventory = this.getInventoryExportData();
 	}
 
@@ -64,6 +65,7 @@ class EntityPlayer extends Entity{
 
 	get updatedAttributes() {
 		const temp = this._updatedAttributes;
+		this.needsUpdate = false;
 		this._updatedAttributes = {
 			id: this.eid,
 			tags: {
