@@ -12,6 +12,12 @@ class EntityPlayer extends Entity{
 		this.maxHealth = game.settings.user.defaultHealth;
 
 		this._health = this.maxHealth;
+		this._updatedAttributes = {
+			id: this.eid,
+			tags: {
+				uid: this.id
+			}
+		};
 	}
 
 	addItem(itemTag, addAmount) {
