@@ -7,10 +7,10 @@ class StructureResource extends Structure {
 	}
 
 	onPick(user) {
-		const nextHealth = this.health - this.max / 10;
+		const nextHealth = this.health - this.maxHealth / this.max;
 
 		if(nextHealth <= 0) {
-			this.handlePick();
+			this.handlePick(user);
 		}
 
 		this.health = nextHealth;

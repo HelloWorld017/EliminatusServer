@@ -14,6 +14,7 @@ class EntityPlayer extends Entity{
 		this._health = this.maxHealth;
 		this._updatedAttributes = {
 			id: this.eid,
+			type: this.type,
 			tags: {
 				uid: this.id
 			}
@@ -30,7 +31,7 @@ class EntityPlayer extends Entity{
 		this.inventory.set(itemTag, amount + addAmount);
 
 		this.needsUpdate = true;
-		this.updatedAttributes.tags.inventory = this.getInventoryExportData();
+		this._updatedAttributes.tags.inventory = this.getInventoryExportData();
 	}
 
 	announce(...args) {
@@ -74,6 +75,7 @@ class EntityPlayer extends Entity{
 		this.needsUpdate = false;
 		this._updatedAttributes = {
 			id: this.eid,
+			type: this.type,
 			tags: {
 				uid: this.id
 			}

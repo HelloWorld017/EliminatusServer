@@ -21,7 +21,8 @@ class Entity {
 		const temp = this._updatedAttributes;
 		this.needsUpdate = false;
 		this._updatedAttributes = {
-			id: this.eid
+			id: this.eid,
+			type: this.type
 		};
 
 		return temp;
@@ -61,7 +62,7 @@ class Entity {
 	}
 
 	tick() {
-		
+
 	}
 
 	setDead() {

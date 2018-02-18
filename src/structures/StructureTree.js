@@ -10,7 +10,7 @@ class StructureTree extends StructureResource {
 
 	handlePick(user) {
 		user.addItem("cytrium", 3);
-		user.addItem("tree", 8);
+		user.addItem("wood", 8);
 	}
 
 	static get type() {

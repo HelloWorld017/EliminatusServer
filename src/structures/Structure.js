@@ -32,6 +32,10 @@ class Structure {
 		} else this.onTick();
 	}
 
+	pick(user) {
+		this.onPick(user);
+	}
+
 	onTick() {
 
 	}

@@ -78,7 +78,7 @@ class World {
 
 		this.structureList.delete(object.uid);
 
-		user.announce('structure.remove', object.getExportData());
+		this.game.announce('structure.remove', object.getExportData());
 	}
 
 	getStructureExportData() {

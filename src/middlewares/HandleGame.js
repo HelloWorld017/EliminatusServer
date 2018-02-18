@@ -30,6 +30,16 @@ module.exports = function handleGame(socket) {
 		game.world.addStructure(structure);
 	}));
 
+	socket.on('game.structure.pick', checker(({x, z}, ent, game) => {
+		if(typeof x !== 'number' || typeof z !== 'number' || !isFinite(x) || !isFinite(z)) return;
+		const structureTag = game.world.getPositionTag({x, y: z});
+		const structure = game.world.structures[structureTag];
+
+		if(!structure) return;
+
+		structure.pick(ent);
+	}));
+
 	socket.on('world.notify.request', checker((payload, ent, game) => {
 		game.world.notifyWorld(ent);
 	}));
