@@ -78,7 +78,15 @@ class World {
 
 		this.structureList.delete(object.uid);
 
-		this.game.announce('structure.remove', object.getExportData());
+		this.game.announce('structure.remove', {
+			animate: [{
+				type: "structure.destruct",
+				args: {
+					positions
+				}
+			}],
+			structurePosition: positions[0]
+		});
 	}
 
 	getStructureExportData() {
