@@ -94,7 +94,8 @@ class EntityPlayer extends Entity{
 			health: this.health,
 			tags: {
 				inventory: this.getInventoryExportData(),
-				uid: this.id
+				uid: this.id,
+				name: this.user.name
 			},
 			id: this.eid
 		};
