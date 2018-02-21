@@ -6,6 +6,13 @@ class StructureRotatedWall extends Structure {
 		this.maxHealth = 600;
 		this._health = this.maxHealth;
 	}
+	
+	get ingredients() {
+		return {
+			cytrium: 50,
+			stone: 40
+		};
+	}
 
 	static get type() {
 		return "wall_rot";

@@ -26,6 +26,12 @@ class StructureTurret extends Structure {
 		return grid;
 	}
 
+	get ingredients() {
+		return {
+			cytrium: 400,
+			stone: 60
+		};
+	}
 
 	static get type() {
 		return "turret";

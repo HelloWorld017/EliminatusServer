@@ -11,6 +11,14 @@ class StructureExtractorCore extends Structure {
 		//TODO implement
 	}
 
+	get ingredients() {
+		return {
+			cytrium: 70,
+			stone: 10,
+			wood: 10
+		};
+	}
+
 	static get type() {
 		return "extractor_core";
 	}

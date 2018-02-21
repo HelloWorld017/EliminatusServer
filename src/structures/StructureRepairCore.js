@@ -10,12 +10,20 @@ class StructureRepairCore extends Structure {
 	onTick() {
 		//TODO heal near entities
 	}
-	
+
 	getGridPosition() {
 		const x = Math.floor(this.x / 40);
 		const y = Math.floor(this.y / 40);
 
 		return [{x, y}, {x: x + 1, y}, {x, y: y + 1}, {x: x + 1, y: y + 1}];
+	}
+
+	get ingredients() {
+		return {
+			cytrium: 400,
+			stone: 75,
+			wood: 30
+		};
 	}
 
 	get width() {

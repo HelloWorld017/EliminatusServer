@@ -7,6 +7,13 @@ class StructureWall extends Structure {
 		this._health = this.maxHealth;
 	}
 
+	get ingredients() {
+		return {
+			cytrium: 50,
+			stone: 40
+		};
+	}
+
 	static get type() {
 		return "wall";
 	}

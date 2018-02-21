@@ -29,6 +29,14 @@ class StructureFactoryCore extends Structure {
 	get userBuildable() {
 		return true;
 	}
+
+	get ingredients() {
+		return {
+			cytrium: 300,
+			stone: 10,
+			wood: 30
+		};
+	}
 }
 
 module.exports = StructureFactoryCore;

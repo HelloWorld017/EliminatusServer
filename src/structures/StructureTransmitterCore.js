@@ -11,6 +11,13 @@ class StructureTransmitterCore extends Structure {
 		return "transmitter_core";
 	}
 
+	get ingredients() {
+		return {
+			cytrium: 100,
+			stone: 50
+		};
+	}
+
 	get userBuildable() {
 		return true;
 	}

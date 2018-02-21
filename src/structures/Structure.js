@@ -80,6 +80,10 @@ class Structure {
 		};
 	}
 
+	get ingredients() {
+		return {};
+	}
+
 	get userBuildable() {
 		return false;
 	}

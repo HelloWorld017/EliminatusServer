@@ -10,11 +10,19 @@ class StructureGeneratorCore extends Structure {
 	onTick() {
 		//TODO add health to near structures
 	}
+
 	getGridPosition() {
 		const x = Math.floor(this.x / 40);
 		const y = Math.floor(this.y / 40);
 
 		return [{x, y}, {x: x + 1, y}, {x, y: y + 1}, {x: x + 1, y: y + 1}];
+	}
+
+	get ingredients() {
+		return {
+			cytrium: 300,
+			stone: 50
+		};
 	}
 
 	get width() {
