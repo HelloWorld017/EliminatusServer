@@ -27,6 +27,10 @@ module.exports = function handleGame(socket) {
 		// poisonous inputs like "constructor" can result in object["constructor"]
 
 		const structure = new (game.world.structuresByType.get(type))(game, x, y, mod(rotation, Math.PI * 2));
+
+		if(!Object.keys(structure.ingredients).every(k => ent.inventory.get(k) >= structure.ingredients[k])) return;
+		Object.keys(structure.ingredients).forEach(k => ent.takeItem(k, structure.ingredients[k]));
+
 		game.world.addStructure(structure);
 	}));
 

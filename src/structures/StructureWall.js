@@ -10,7 +10,7 @@ class StructureWall extends Structure {
 	get ingredients() {
 		return {
 			cytrium: 50,
-			stone: 40
+			stone: 5
 		};
 	}
 

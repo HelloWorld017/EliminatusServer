@@ -29,7 +29,7 @@ class StructureTurret extends Structure {
 	get ingredients() {
 		return {
 			cytrium: 400,
-			stone: 60
+			stone: 20
 		};
 	}
 

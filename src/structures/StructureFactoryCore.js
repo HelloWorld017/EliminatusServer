@@ -33,7 +33,7 @@ class StructureFactoryCore extends Structure {
 	get ingredients() {
 		return {
 			cytrium: 300,
-			stone: 10,
+			stone: 20,
 			wood: 30
 		};
 	}

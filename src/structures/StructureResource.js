@@ -4,6 +4,7 @@ class StructureResource extends Structure {
 	constructor(networkId, game, x, y, rot) {
 		super(networkId, game, x, y, rot);
 		this.max = 10;
+		this.isResource = true;
 	}
 
 	onPick(user) {

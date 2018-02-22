@@ -26,6 +26,17 @@ class StructureExtractorCore extends Structure {
 	get userBuildable() {
 		return true;
 	}
+
+	canBuiltOn() {
+		if(this.rotation % (Math.PI / 2) !== 0) return false;
+
+		return this.getGridPosition().every(v => {
+			const structure = this.game.world.structures[this.game.world.getPositionTag(v)];
+
+			if(!structure) return false;
+			return structure.type === 'ore';
+		});
+	}
 }
 
 module.exports = StructureExtractorCore;

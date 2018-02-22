@@ -34,6 +34,18 @@ class EntityPlayer extends Entity{
 		this._updatedAttributes.tags.inventory = this.getInventoryExportData();
 	}
 
+	takeItem(itemTag, amount) {
+		amount = Math.max(0, amount);
+
+		const playerAmount = this.inventory.get(itemTag);
+		if(playerAmount < amount) return;
+
+		this.inventory.set(itemTag, playerAmount - amount);
+
+		this.needsUpdate = true;
+		this._updatedAttributes.tags.inventory = this.getInventoryExportData();
+	}
+
 	announce(...args) {
 		this.user.announce(...args);
 	}
