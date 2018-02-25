@@ -19,6 +19,12 @@ class EntityPlayer extends Entity{
 				uid: this.id
 			}
 		};
+
+		if((process.env.NODE_ENV || "development") === "development") {
+			this.addItem("cytrium", 300);
+			this.addItem("stone", 300);
+			this.addItem("wood", 300);
+		}
 	}
 
 	addItem(itemTag, addAmount) {

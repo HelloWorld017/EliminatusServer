@@ -17,7 +17,8 @@ class Structure {
 		this._health = 300;
 		this._updatedAttributes = {
 			x: this.x,
-			y: this.y
+			y: this.y,
+			tags: {}
 		};
 	}
 
@@ -69,6 +70,10 @@ class Structure {
 		return this.getGridPosition().every((v) => !this.game.world.structures[this.game.world.getPositionTag(v)]);
 	}
 
+	getTags() {
+		return {};
+	}
+
 	getExportData() {
 		return {
 			type: this.networkId,
@@ -76,7 +81,8 @@ class Structure {
 			y: this.y,
 			rotation: this.rotation,
 			health: this.health,
-			maxHealth: this.maxHealth
+			maxHealth: this.maxHealth,
+			tags: this.getTags()
 		};
 	}
 
@@ -93,7 +99,8 @@ class Structure {
 		this.needsUpdate = false;
 		this._updatedAttributes = {
 			x: this.x,
-			y: this.y
+			y: this.y,
+			tags: {}
 		};
 		return temp;
 	}

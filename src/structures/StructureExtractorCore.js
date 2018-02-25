@@ -5,10 +5,48 @@ class StructureExtractorCore extends Structure {
 		super("extractor_core", game, x, y, rotation);
 		this.maxHealth = 250;
 		this._health = this.maxHealth;
+		this.extractTick = 0;
+		this.connected = false;
 	}
 
 	onTick() {
-		//TODO implement
+		const gridPos = this.getGridPosition()[0];
+		const adjustRot = this.rotation + Math.PI / 2;
+		const connectedStructure = this.game.world.structures[
+			`${gridPos.x - Math.cos(adjustRot)}:${gridPos.y - Math.sin(adjustRot)}`
+		];
+
+		if(connectedStructure && connectedStructure.type === 'transmitter_core') {
+			if(!this.connected) {
+				this.connected = true;
+
+				this._updatedAttributes.tags.connected = true;
+				this.needsUpdate = true;
+			}
+
+			this.extractTick++;
+
+			if(this.extractTick === 40) {
+				this.game.users.forEach((v) => {
+					v.addItem("cytrium", 5);
+				});
+
+				this.extractTick = 0;
+			}
+		} else {
+			if(this.connected) {
+				this.connected = false;
+
+				this._updatedAttributes.tags.connected = false;
+				this.needsUpdate = true;
+			}
+		}
+	}
+
+	getTags() {
+		return {
+			connected: this.connected
+		};
 	}
 
 	get ingredients() {
